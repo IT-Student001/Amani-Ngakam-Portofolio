@@ -1,0 +1,53 @@
+name: Deploy portfolio to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare website
+        shell: bash
+        run: |
+          mkdir -p _site
+          cp -R HTML/. _site/
+          cp -R CSS JS Images templates _site/
+
+          # HTML files are published at the site root, so convert the existing
+          # local parent-directory links to paths valid on GitHub Pages.
+          find _site -type f \( -name '*.html' -o -name '*.js' -o -name '*.css' \) \
+            -exec sed -i 's#\.\./CSS/#CSS/#g; s#\.\./JS/#JS/#g; s#\.\./Images/#Images/#g; s#\.\./templates/#templates/#g; s#\.\./HTML/#/#g' {} +
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
