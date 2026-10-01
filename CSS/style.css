@@ -1,0 +1,740 @@
+/* =========================================================
+   01. RESET / GLOBAL
+========================================================= */
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+html {
+   scroll-behavior: smooth;
+}
+
+body {
+   font-family: Arial, Helvetica, sans-serif;
+   background: #d0d0d0;
+   color: #242424;
+   overflow-x: hidden;
+}
+
+a {
+   color: inherit;
+   text-decoration: none;
+}
+
+img {
+   display: block;
+   max-width: 100%;
+}
+
+
+/* =========================================================
+   02. NAVBAR
+========================================================= */
+
+.navbar {
+   position: fixed;
+   top: 18px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: calc(100% - 48px);
+   max-width: 1400px;
+   height: 64px;
+   padding: 0 25px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   background: rgba(195, 195, 195, 0.68);
+   border: 1px solid rgba(255, 255, 255, 0.35);
+   border-radius: 18px;
+   backdrop-filter: blur(25px);
+   -webkit-backdrop-filter: blur(25px);
+   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+   z-index: 1000;
+}
+
+.logo {
+   font-size: 14px;
+   font-weight: 800;
+   letter-spacing: 0.16em;
+   transition: transform 0.25s ease;
+}
+
+.logo:hover {
+   transform: translateY(-1px);
+}
+
+.nav-links {
+   display: flex;
+   align-items: center;
+   gap: 32px;
+}
+
+.nav-links a {
+   position: relative;
+   font-size: 13px;
+   font-weight: 600;
+   color: #555;
+   transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.nav-links a::after {
+   content: "";
+   position: absolute;
+   left: 0;
+   bottom: -7px;
+   width: 0;
+   height: 1px;
+   background: #222;
+   transition: width 0.25s ease;
+}
+
+.nav-links a:hover {
+   color: #111;
+   transform: translateY(-1px);
+}
+
+.nav-links a:hover::after {
+   width: 100%;
+}
+
+.menu-button {
+   display: none;
+   width: 42px;
+   height: 42px;
+   border: none;
+   border-radius: 12px;
+   background: rgba(255, 255, 255, 0.25);
+   cursor: pointer;
+}
+
+.menu-button span {
+   display: block;
+   width: 18px;
+   height: 2px;
+   margin: 5px auto;
+   background: #242424;
+}
+
+
+/* =========================================================
+   03. HERO
+========================================================= */
+
+.hero {
+   position: relative;
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   overflow: hidden;
+   background: #bdbdbd;
+}
+
+#heroImage {
+   position: absolute;
+   inset: 0;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   opacity: 0.58;
+   filter: saturate(0.88) brightness(0.88);
+   transition: opacity 0.35s ease, filter 0.5s ease;
+}
+
+.hero-overlay {
+   position: absolute;
+   inset: 0;
+   background: linear-gradient(90deg, rgba(25, 25, 25, 0.68) 0%, rgba(25, 25, 25, 0.42) 42%, rgba(25, 25, 25, 0.16) 100%);
+   z-index: 1;
+}
+
+.hero-content {
+   position: relative;
+   z-index: 2;
+   width: min(900px, 80%);
+   margin-left: 9vw;
+   color: #f3f3f3;
+}
+
+.hero-number {
+   margin-bottom: 16px;
+   font-size: 13px;
+   font-weight: 800;
+   letter-spacing: 0.2em;
+   color: rgba(255, 255, 255, 0.7);
+   animation: textPop 0.75s ease both;
+}
+
+.hero-content h1 {
+   max-width: 850px;
+   font-size: clamp(58px, 8vw, 118px);
+   line-height: 0.91;
+   letter-spacing: -0.065em;
+   font-weight: 800;
+   animation: textPop 0.85s 0.05s ease both;
+}
+
+.hero-content>p:not(.hero-number) {
+   max-width: 600px;
+   margin-top: 32px;
+   font-size: 17px;
+   line-height: 1.7;
+   color: rgba(255, 255, 255, 0.78);
+   animation: textPop 0.85s 0.12s ease both;
+}
+
+
+/* =========================================================
+   04. HERO BUTTONS
+========================================================= */
+
+.hero-buttons {
+   display: flex;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 12px;
+   margin-top: 38px;
+   animation: textPop 0.85s 0.2s ease both;
+}
+
+.hero-button {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   min-width: 125px;
+   padding: 14px 21px;
+   border-radius: 100px;
+   font-size: 12px;
+   font-weight: 800;
+   transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-button:hover {
+   transform: translateY(-3px);
+}
+
+.hero-button.primary {
+   background: #242424;
+   color: #f2f2f2;
+   border: 1px solid #242424;
+}
+
+.hero-button.primary:hover {
+   background: #111;
+}
+
+.hero-button.secondary {
+   background: rgba(225, 225, 225, 0.2);
+   color: #f3f3f3;
+   border: 1px solid rgba(255, 255, 255, 0.35);
+   backdrop-filter: blur(15px);
+   -webkit-backdrop-filter: blur(15px);
+}
+
+.hero-button.secondary:hover {
+   background: rgba(235, 235, 235, 0.32);
+}
+
+
+/* =========================================================
+   05. SLIDER DOTS
+========================================================= */
+
+.slider-dots {
+   position: absolute;
+   left: 9vw;
+   bottom: 45px;
+   z-index: 3;
+   display: flex;
+   align-items: center;
+   gap: 9px;
+}
+
+.slider-dot {
+   width: 7px;
+   height: 7px;
+   padding: 0;
+   border: none;
+   border-radius: 50%;
+   background: rgba(255, 255, 255, 0.38);
+   cursor: pointer;
+   transition: width 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+.slider-dot:hover {
+   transform: scale(1.25);
+}
+
+.slider-dot.active {
+   width: 24px;
+   border-radius: 100px;
+   background: #fff;
+}
+
+
+/* =========================================================
+   06. ABOUT
+========================================================= */
+
+.about {
+   padding: 150px 9vw;
+   display: grid;
+   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+   gap: 10vw;
+   background: #d2d2d2;
+}
+
+.section-heading {
+   animation: textPop 0.85s ease both;
+   min-width: 0;
+}
+
+.section-label {
+   font-size: 11px;
+   font-weight: 800;
+   letter-spacing: 0.2em;
+   color: #707070;
+}
+
+.section-heading h2 {
+   margin-top: 20px;
+   font-size: clamp(42px, 5vw, 76px);
+   line-height: 0.98;
+   letter-spacing: -0.055em;
+}
+
+.about .section-heading h2 {
+   display: block;
+   width: 100%;
+   max-width: 850px;
+   white-space: normal;
+   word-break: normal;
+   overflow-wrap: normal;
+}
+
+.about-content {
+   max-width: 700px;
+   padding-top: 30px;
+   min-width: 0;
+}
+
+.about-content p {
+   margin-bottom: 28px;
+   font-size: 16px;
+   line-height: 1.8;
+   color: #555;
+   animation: textPop 0.8s ease both;
+}
+
+.about-content p:nth-child(2) {
+   animation-delay: 0.08s;
+}
+
+.about-content p:nth-child(3) {
+   animation-delay: 0.16s;
+}
+
+.about-content p:nth-child(4) {
+   animation-delay: 0.24s;
+}
+
+.about-content p:nth-child(5) {
+   animation-delay: 0.32s;
+}
+
+.about-content p:nth-child(6) {
+   animation-delay: 0.40s;
+}
+
+.about-content p:nth-child(7) {
+   animation-delay: 0.48s;
+}
+
+.about-content p:nth-child(8) {
+   animation-delay: 0.56s;
+}
+
+
+/* =========================================================
+   07. QUALIFICATIONS
+========================================================= */
+
+.qualifications {
+   padding: 140px 9vw 160px;
+   background: #c8c8c8;
+}
+
+.qualifications-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 18px;
+   margin-top: 75px;
+}
+
+.qualification-card {
+   min-height: 360px;
+   padding: 32px;
+   display: flex;
+   flex-direction: column;
+   background: #dedede;
+   border: 1px solid rgba(255, 255, 255, 0.28);
+   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, background 0.35s ease;
+   animation: textPop 0.85s ease both;
+}
+
+.qualification-card:nth-child(2) {
+   animation-delay: 0.08s;
+}
+
+.qualification-card:nth-child(3) {
+   animation-delay: 0.16s;
+}
+
+.qualification-card:nth-child(4) {
+   animation-delay: 0.24s;
+}
+
+.qualification-card:nth-child(5) {
+   animation-delay: 0.32s;
+}
+
+.qualification-card:nth-child(6) {
+   animation-delay: 0.40s;
+}
+
+.qualification-card:hover {
+   transform: translateY(-8px);
+   background: #e2e2e2;
+   box-shadow: 0 22px 45px rgba(0, 0, 0, 0.08);
+}
+
+.qualification-number {
+   font-size: 11px;
+   font-weight: 800;
+   letter-spacing: 0.14em;
+   color: #777;
+}
+
+.qualification-card h3 {
+   margin-top: 75px;
+   margin-bottom: 18px;
+   font-size: 30px;
+   letter-spacing: -0.04em;
+}
+
+.qualification-card p {
+   font-size: 14px;
+   line-height: 1.7;
+   color: #5b5b5b;
+}
+
+.qualification-skills {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 7px;
+   margin-top: auto;
+   padding-top: 25px;
+}
+
+.qualification-skills span {
+   padding: 7px 10px;
+   border: 1px solid rgba(0, 0, 0, 0.1);
+   border-radius: 100px;
+   font-size: 9px;
+   font-weight: 800;
+   letter-spacing: 0.08em;
+   color: #666;
+}
+
+
+/* =========================================================
+   08. SKILLS
+========================================================= */
+
+.skills {
+   padding: 140px 9vw 160px;
+   background: #d2d2d2;
+}
+
+.skills-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 18px;
+   margin-top: 75px;
+}
+
+.skill-card {
+   min-height: 330px;
+   padding: 32px;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   background: #dedede;
+   border: 1px solid rgba(255, 255, 255, 0.28);
+   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, background 0.35s ease;
+   animation: textPop 0.85s ease both;
+}
+
+.skill-card:nth-child(2) {
+   animation-delay: 0.08s;
+}
+
+.skill-card:nth-child(3) {
+   animation-delay: 0.16s;
+}
+
+.skill-card:hover {
+   transform: translateY(-8px);
+   background: #e2e2e2;
+   box-shadow: 0 22px 45px rgba(0, 0, 0, 0.08);
+}
+
+.skill-number {
+   font-size: 11px;
+   font-weight: 800;
+   letter-spacing: 0.14em;
+   color: #777;
+}
+
+.skill-card h3 {
+   margin-top: auto;
+   margin-bottom: 18px;
+   font-size: 30px;
+   letter-spacing: -0.04em;
+}
+
+.skill-card p {
+   font-size: 14px;
+   line-height: 1.7;
+   color: #5b5b5b;
+}
+
+
+/* =========================================================
+   09. FOOTER
+========================================================= */
+
+.footer {
+   padding: 55px 9vw;
+   display: flex;
+   align-items: flex-end;
+   justify-content: space-between;
+   gap: 30px;
+   background: #bcbcbc;
+   color: #555;
+   font-size: 12px;
+}
+
+.footer-title {
+   margin-bottom: 8px;
+   font-size: 11px;
+   font-weight: 800;
+   letter-spacing: 0.16em;
+   color: #333;
+}
+
+
+/* =========================================================
+   10. ANIMATIONS
+========================================================= */
+
+@keyframes textPop {
+   0% {
+      opacity: 0;
+      transform: translateY(18px) scale(0.96);
+      filter: blur(5px);
+   }
+
+   60% {
+      opacity: 1;
+      transform: translateY(-2px) scale(1.01);
+      filter: blur(0);
+   }
+
+   100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+   }
+}
+
+
+/* =========================================================
+   11. RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+   .navbar {
+      top: 14px;
+      width: calc(100% - 28px);
+      height: 60px;
+   }
+
+   .menu-button {
+      display: block;
+   }
+
+   .nav-links {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      border-radius: 16px;
+      background: rgba(205, 205, 205, 0.92);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+   }
+
+   .nav-links.open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+   }
+
+   .hero-content {
+      width: 86%;
+      margin-left: 7vw;
+   }
+
+   .hero-content h1 {
+      font-size: clamp(52px, 12vw, 85px);
+   }
+
+   .hero-content>p:not(.hero-number) {
+      font-size: 16px;
+   }
+
+   .slider-dots {
+      left: 7vw;
+      bottom: 30px;
+   }
+
+   .about {
+      grid-template-columns: 1fr;
+      gap: 45px;
+      padding: 100px 7vw;
+   }
+
+   .about-content {
+      padding-top: 0;
+      max-width: 850px;
+   }
+
+   .qualifications {
+      padding: 100px 7vw;
+   }
+
+   .qualifications-grid {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 55px;
+   }
+
+   .skills {
+      padding: 100px 7vw;
+   }
+
+   .skills-grid {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 55px;
+   }
+
+}
+
+
+/* =========================================================
+   12. RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+   .navbar {
+      height: 58px;
+      padding: 0 18px;
+   }
+
+   .hero {
+      min-height: 800px;
+   }
+
+   .hero-content {
+      width: 88%;
+   }
+
+   .hero-content h1 {
+      font-size: 52px;
+   }
+
+   .hero-content>p:not(.hero-number) {
+      margin-top: 25px;
+      font-size: 15px;
+      line-height: 1.65;
+   }
+
+   .hero-buttons {
+      margin-top: 30px;
+      flex-direction: column;
+      align-items: flex-start;
+   }
+
+   .hero-button {
+      min-width: 140px;
+   }
+
+   .about {
+      padding: 90px 7vw;
+      gap: 35px;
+   }
+
+   .section-heading h2 {
+      font-size: 48px;
+   }
+
+   .qualifications {
+      padding: 90px 7vw;
+   }
+
+   .qualifications-grid {
+      grid-template-columns: 1fr;
+      margin-top: 45px;
+   }
+
+   .qualification-card {
+      min-height: 320px;
+   }
+
+   .qualification-card h3 {
+      margin-top: 55px;
+   }
+
+   .skills {
+      padding: 90px 7vw;
+   }
+
+   .skills-grid {
+      grid-template-columns: 1fr;
+      margin-top: 45px;
+   }
+
+   .skill-card {
+      min-height: 290px;
+   }
+
+   .footer {
+      padding: 50px 7vw;
+      flex-direction: column;
+      align-items: flex-start;
+   }
+
+}
